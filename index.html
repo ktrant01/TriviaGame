@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Timer Game</title>
+
+</head>
+
+<body>
+     <button id="start">start</button>
+<div id=container>
+       
+
+<div id="time"></div>
+
+
+
+<h1>Question 1</h1>
+
+<form>
+        <input type="radio" name="q1" value="A"> Male
+        <input type="radio" name="q1" value="B"> Female
+        <input type="radio" name="q1" value="C"> Other  
+        <input type="radio" name="q1" value="D"> Other  
+      </form> 
+
+<h1>Question 2</h1>
+
+<form>
+        <input type="radio" name="q2" value="A"> Male
+        <input type="radio" name="q2" value="B"> Female
+        <input type="radio" name="q2" value="C"> Other  
+        <input type="radio" name="q2" value="D"> Other  
+      </form> 
+
+<h1>Question 3</h1>
+
+<form>
+        <input type="radio" name="q3" value="A"> Male
+        <input type="radio" name="q3" value="B"> Female
+        <input type="radio" name="q3" value="C"> Other  
+        <input type="radio" name="q3" value="D"> Other  
+      </form> 
+
+<h1>Question 4</h1>
+
+<form>
+        <input type="radio" name="q4" value="A"> Male
+        <input type="radio" name="q4" value="B"> Female
+        <input type="radio" name="q4" value="C"> Other  
+        <input type="radio" name="q4" value="D"> Other  
+      </form> 
+
+<h1>Question 5</h1>
+
+<form>
+        <input type="radio" name="q5" value="A"> Male
+        <input type="radio" name="q5" value="B"> Female
+        <input type="radio" name="q5" value="C"> Other  
+        <input type="radio" name="q5" value="D"> Other  
+      </form> 
+
+<h1>Question 6</h1>
+
+<form>
+        <input type="radio" name="q6" value="A"> Male
+        <input type="radio" name="q6" value="B"> Female
+        <input type="radio" name="q6" value="C"> Other  
+        <input type="radio" name="q6" value="D"> Other  
+      </form> 
+
+<button id="submit">Submit</button>
+</div>
+
+  <!-- Added link to the jQuery Library -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+  $("#container").hide();
+var answersKey = { q1: 'C', q2: 'B', q3: 'A', q4: 'D', q5: 'C', q6: 'A'}
+var Answers = 0
+var selectedAnswer = 0
+var correctAnswers = 0
+var realAnswer = 0
+var incorrectAnswers = 0
+var unanswered = 0
+var seconds = 20;
+var timer;
+var timeout;
+        
+$('#time').text(seconds);
+
+		function startTimer(){
+			seconds--;
+			$('#time').text(seconds);
+		}
+
+		$('#start').on('click', function(){
+            timer = setInterval(startTimer, 1000);
+            setTimeout(quiz, 20000)
+            $("#container").show();
+            $('#start').remove()
+
+
+		});
+
+$('#submit').click(quiz)
+
+function quiz(){
+
+    for (key in answersKey){
+  
+    //Answer pulled from array
+    realAnswer = answersKey[key]
+    //Answer provided by user's radio selection, depends on answerkey array index count and html input name
+    selectedAnswer = $('input[name=' + [key] + ' ]:checked').val();
+
+    //statements to capture user's score
+        if (selectedAnswer == realAnswer){
+            correctAnswers++
+        }else if (selectedAnswer == undefined){
+            unanswered ++
+        }else if (selectedAnswer != realAnswer){
+            incorrectAnswers ++
+        }
+
+    }
+
+//Score Screen
+score()
+
+}
+
+function score(){
+$('#container').empty()
+var correctanswersDiv = $('<div>').text("Correct Answers: " + correctAnswers);
+$('#container').append(correctanswersDiv)
+var incorrectanswersDiv = $('<div>').text("incorrect Answers: " + incorrectAnswers)
+$('#container').append(incorrectanswersDiv)
+var unansweredDiv = $('<div>').text("Unanswered: " + unanswered)
+$('#container').append(unansweredDiv)
+}
+
+
+  </script>
+
+</body>
+
+</html>
